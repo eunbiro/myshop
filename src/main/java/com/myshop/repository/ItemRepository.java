@@ -1,8 +1,10 @@
 package com.myshop.repository;
 
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.myshop.constant.ItemSellStatus;
 import com.myshop.entity.Item;
@@ -22,13 +24,36 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	List<Item> findByPriceLessThanOrderByPriceDesc(Integer price);
 	// "SELECT * FROM ITEM WHERE PRICE < " + price + "ORDER BY PRICE DESC"
 	
+	
+														// 가져온 파라미터 값을 넣어주고 싶은 경우 : 를 붙이고 사용한다.
+//	@Query("select i from Item i where i.itemDetail like %:itemDetail% order by i.price desc")
+//	List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
+								// 받은 값을 쿼리에 넣어줘야 할 경우 @Param을 사용한다.
+								// 받은 파라메터를 @Param(이름)으로 쿼리문에 넣어둔다.
+	
+	@Query("select i from Item i where i.itemDetail like %?1% order by i.price desc")
+	List<Item> findByItemDetail(String itemDetail);		//?1 : 첫번째 파라메터
+	
+	@Query(value = "select * from item i where i.item_detail like %:itemDetail% order by i.price desc", nativeQuery = true)
+	List<Item> findByItemDetailByNative(@Param("itemDetail") String itemDetail);
+	
+	
+
+
+	
+	/*
+	// 퀴즈1
 	List<Item> findByItemNmAndItemSellStatus(String itemNm, ItemSellStatus itemDetail);
-	
 	List<Item> findByPriceBetween(Integer price1, Integer price2);
-	
 	List<Item> findByRegTimeAfter(LocalDateTime RegTime);
-	
 	List<Item> findByItemSellStatusNotNull();
-	
 	List<Item> findByItemDetailEndingWith(String itemDetail);
+	
+	// 퀴즈2
+	@Query("select i from Item i where i.price >= :price")
+	List<Item> findByPrice(@Param("price") Integer price);
+	
+	@Query("select i from Item i where i.itemNm in :itemNm and i.itemSellStatus in :itemSellStatus")
+	List<Item> findByItemNmitemSellStatus(@Param("itemNm") String itemNm, @Param("itemSellStatus") ItemSellStatus itemSellStatus);
+	*/
 }
