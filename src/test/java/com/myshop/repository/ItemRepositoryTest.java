@@ -172,7 +172,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -194,7 +194,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -211,7 +211,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -227,7 +227,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -244,7 +244,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -260,7 +260,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	
@@ -276,7 +276,7 @@ class ItemRepositoryTest {
 		List<Item> itemList = query.fetch();
 		
 		for (Item item : itemList) {
-			System.err.println(item.toString());
+			System.out.println(item.toString());
 		}
 	}
 	

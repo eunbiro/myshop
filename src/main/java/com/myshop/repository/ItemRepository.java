@@ -55,5 +55,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	
 	@Query("select i from Item i where i.itemNm in :itemNm and i.itemSellStatus in :itemSellStatus")
 	List<Item> findByItemNmitemSellStatus(@Param("itemNm") String itemNm, @Param("itemSellStatus") ItemSellStatus itemSellStatus);
+	
+																							// 열거형(enum) 타입의 Param 데이터는 name()으로 지정해서 가져와야한다. 
+	@Query(value = "select * from item i where i.item_nm in :itemNm and i.item_sell_status in :#{itemSellStatus.name()}", nativeQuery = true)
+	List<Item> findByItemNmitemSellStatus(@Param("itemNm") String itemNm, @Param("itemSellStatus") ItemSellStatus itemSellStatus);
 	*/
 }
