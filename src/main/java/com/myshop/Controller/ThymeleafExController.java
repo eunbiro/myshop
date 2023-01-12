@@ -82,22 +82,18 @@ public class ThymeleafExController {
 	}
 	
 	@GetMapping(value = "/ex06")
-	public String thymeleafEx06(Model model) {
+	public String thymeleafEx06(String param1, String param2, Model model) {
+		System.out.println(param1 + ", " + param2);
 		
-		List<ItemDto> itemDtoList = new ArrayList<>();
+		model.addAttribute("param1", param1);
+		model.addAttribute("param2", param2);
 		
-		for (int i = 1; i <= 10; i++) {
-			ItemDto itemDto = new ItemDto();
-			
-			itemDto.setItemNm("테스트 상품" + i);
-			itemDto.setPrice(10000 + i);
-			itemDto.setItemDetail("테스트 상품 상세 설명" + i);
-			itemDto.setRegTime(LocalDateTime.now());
-			
-			itemDtoList.add(itemDto);
-		}
-		
-		model.addAttribute("itemDtoList", itemDtoList);
 		return "thymeleafEx/thymeleafEx06";
+	}
+	
+	@GetMapping(value = "/ex07")
+	public String thymeleafEx07(Model model) {
+
+		return "thymeleafEx/thymeleafEx07";
 	}
 }
