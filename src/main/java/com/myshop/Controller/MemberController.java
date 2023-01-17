@@ -1,5 +1,8 @@
 package com.myshop.Controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myshop.dto.MemberFormDto;
 import com.myshop.entity.Member;
@@ -64,6 +68,23 @@ public class MemberController {
 		return "member/memberLoginForm";
 	}
 	
+	private final SessionManager sessionManager;
+	
+	// 쿠키, 세션 테스트
+//	@PostMapping(value = "/login2")
+	public String loginMember2(HttpServletResponse response, HttpSession session, @RequestParam String email) {
+																				//@RequestParam : 앞에서 액션진행 될 때 name이 email인 데이터를 그대로 가져옴
+		
+		System.out.println("email : " + email);
+		Cookie idCookie = new Cookie("userCookieId", email);
+		response.addCookie(idCookie);
+		
+//		session.setAttribute("userSessionId2", email);	> 단순히 session 객체에 저장
+		sessionManager.createSession(email, response);
+		
+		return "member/memberLoginForm";
+	}
+	
 	// 로그인 실패 시
 	@GetMapping(value = "/login/error")
 	public String loginError(Model model) {
@@ -71,4 +92,5 @@ public class MemberController {
 		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
 		return "member/memberLoginForm";
 	}
+
 }
