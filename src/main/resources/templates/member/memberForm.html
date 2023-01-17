@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
-<title>상품 데이터 출력 예제</title>
+<title>회원가입 화면</title>
 
 <!-- 각 페이지에 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script">
@@ -33,35 +33,35 @@
 	<div layout:fragment="content">
 		<form class="row g-3" action="/members/new" method="post" th:object="${memberFormDto}">
 		<!-- th:object=${memberFormDto} : memberFormDto에 자동으로 입력됨 -->
-		<div class="mb-3 row">
-			<label th:for="name" class="col-sm-2 col-form-label">이름</label>
-			<div class="col-sm-10">
-				<input  type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
-				<!-- th:field="*{name}" : 위에서 작성한 th:object에서 입력해줄때 memberFormDto안의 필드와 매칭해 줌 -->
-				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+			<div class="mb-3 row">
+				<label th:for="name" class="col-sm-2 col-form-label">이름</label>
+				<div class="col-sm-10">
+					<input  type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
+					<!-- th:field="*{name}" : 위에서 작성한 th:object에서 입력해줄때 memberFormDto안의 필드와 매칭해 줌 -->
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+				</div>
 			</div>
-		</div>
-		<div class="mb-3 row">
-			<label th:for="email" class="col-sm-2 col-form-label">email</label>
-			<div class="col-sm-10">
-				<input  type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
-				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+			<div class="mb-3 row">
+				<label th:for="email" class="col-sm-2 col-form-label">email</label>
+				<div class="col-sm-10">
+					<input  type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+				</div>
 			</div>
-		</div>
-		<div class="mb-3 row">
-			<label th:for="password" class="col-sm-2 col-form-label">비밀번호</label>
-			<div class="col-sm-10">
-				<input  type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
-				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+			<div class="mb-3 row">
+				<label th:for="password" class="col-sm-2 col-form-label">비밀번호</label>
+				<div class="col-sm-10">
+					<input  type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+				</div>
 			</div>
-		</div>
-		<div class="mb-3 row">
-			<label th:for="address" class="col-sm-2 col-form-label">주소</label>
-			<div class="col-sm-10">
-				<input  type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력해주세요">
-				<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect Data</p>
+			<div class="mb-3 row">
+				<label th:for="address" class="col-sm-2 col-form-label">주소</label>
+				<div class="col-sm-10">
+					<input  type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력해주세요">
+					<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect Data</p>
+				</div>
 			</div>
-		</div>
 		  
 		  <!-- 
 		  <div>
