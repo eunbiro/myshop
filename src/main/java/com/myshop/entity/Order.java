@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
@@ -43,6 +44,6 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;	// 주문상태
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)	// OrderItem에 있는 order에 의해 관리가 된다.
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)	// OrderItem에 있는 order에 의해 관리가 된다.
 	private List<OrderItem> orderItems = new ArrayList<>();
 }

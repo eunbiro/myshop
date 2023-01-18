@@ -2,6 +2,7 @@ package com.myshop.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +26,8 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne						// 참조하는 자식 엔티티에 작성
-	@JoinColumn(name = "member_id")	// join관계의 name을 가져와서 명시해주는게 좋다.
+	@OneToOne(fetch = FetchType.LAZY)	// 참조하는 자식 엔티티에 작성
+	@JoinColumn(name = "member_id")		// join관계의 name을 가져와서 명시해주는게 좋다.
 	private Member member;
 	
 	

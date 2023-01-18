@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.myshop.constant.ItemSellStatus;
 import com.myshop.repository.ItemRepository;
+import com.myshop.repository.MemberRepository;
+import com.myshop.repository.OrderItemRepository;
 import com.myshop.repository.OrderRepository;
 
 @SpringBootTest
@@ -32,6 +34,12 @@ class OrderTest {
 	
 	@PersistenceContext
 	EntityManager em;
+	
+	@Autowired
+	MemberRepository memberRepository;
+	
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	
 	public Item creatItemTest() {
 		Item item = new Item();
@@ -71,5 +79,54 @@ class OrderTest {
 				.orElseThrow(EntityNotFoundException::new);
 		
 		assertEquals(3, saveOrder.getOrderItems().size());
+	}
+	
+	public Order createOrder() {
+		Order order = new Order();
+		
+		for (int i = 0; i < 3; i++) {
+			Item item = this.creatItemTest();	// 3개의 물건 생성
+			itemRepository.save(item);
+			
+			OrderItem orderItem = new OrderItem();
+			orderItem.setItem(item);
+			orderItem.setCount(10);
+			orderItem.setOrderPrice(1000);
+			orderItem.setOrder(order);
+			
+			order.getOrderItems().add(orderItem);
+		}
+		
+		Member member = new Member();
+		memberRepository.save(member);
+		
+		order.setMember(member);
+		orderRepository.save(order);
+		
+		return order;
+	}
+	
+	@Test
+	@DisplayName("고아객체 제거 테스트")
+	public void orphanRemovalTest() {
+		Order order = this.createOrder();
+		order.getOrderItems().remove(0);		// 주문 엔티티에서 주문상품 엔티티를 삭제 했을 때 orderItem 엔티티가 삭제된다.
+		em.flush();
+	}
+	
+	@Test
+	@DisplayName("지연 로딩 테스트")
+	public void lazyLoadingTest() {
+		Order order = this.createOrder();
+		Long orderItemId = order.getOrderItems().get(0).getId();
+						//	주문한. 물건중에서. 첫번째(index가 0인). getId를 가져온다. = order_item 테이블의 첫번째 물건의 id를 구함
+		
+		em.flush();
+		em.clear();
+		
+		OrderItem orderItem = orderItemRepository.findById(orderItemId)
+				.orElseThrow(EntityNotFoundException::new);
+		
+		
 	}
 }
