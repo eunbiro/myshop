@@ -11,7 +11,7 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 	
-	//쿠키를 이용한 아이디 기억
+	 //쿠키를 이용한 아이디 기억
 	$(document).ready(function() {
 		var userInputId = getCookie("userInputId");	// 쿠키의 key로 값을 가져온다.
 		var setCookieYN = getCookie("setCookieYN");
@@ -35,36 +35,9 @@
 				deleteCookie("setCookieYN");
 			}
 		});
-	});
+	}); 
 	
-	
-	/* 
-		// 쿠키를 이용한 아이디 기억
-		$(document).ready(function{
-			var userInputId = getCookie("userInputId");	// 쿠키의 key로 값을 가져온다.
-			var setCookieYN = getCookie("setCookieYN");
-			
-			if (setCookieYN == 'Y') {
-				$("#id_save").prop("checked", true);	// 체크 박스에 check
-				$("#email").val(userInputId);
-			} else {
-				$("#id_save").prop("checked", false);	// 체크 해제
-			}
-			
-			
-			$('#loginbtn').click(function() {
-				// 아이디를 쿠키에 저장
-				if ($("#id_save").is(":checked")) {				// id_save가 체크 되어있으면 true를 리턴
-					var userInputId = $("#email").val();		// 이메일 값을 가져온다.
-					setCookie("userInputId", userInputId, 60);	// 60일 동안 쿠키 저장
-					setCookie("setCookieYN", "Y", 60);
-				} else {
-					deleteCookie("userInputId");
-					deleteCookie("setCookieYN");
-				}
-			});
-			
-		}); */
+	 
 	</script>
 </th:block>
 
