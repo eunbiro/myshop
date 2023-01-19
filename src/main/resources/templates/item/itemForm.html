@@ -102,7 +102,7 @@
 			
 			<!-- 수정할 때 -->
 			<div th:if="${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
-				<div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">	<!-- #numbers.sequence(1, 5) : 1부터 5까지 #넘버 형식으로 실행한다. -->
+				<div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
 					<div class="mb-3">
 						<label for="formFile" class="form-label custom-file-label"
 						th:text="${not #Strings.isEmpty(itemImgDto.oriImgName) ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}}"></label>
