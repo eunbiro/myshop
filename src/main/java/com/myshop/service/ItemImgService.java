@@ -1,5 +1,7 @@
 package com.myshop.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,5 +41,31 @@ public class ItemImgService {
 		// 상품 이미지 정보 저장
 		itemImg.updateItemImg(oriImgName, imgName, imgUrl);
 		itemImgRepository.save(itemImg);
+	}
+	
+	// 이미지 업데이트 메소드
+	public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
+		
+		if (!itemImgFile.isEmpty()) {	// itemImgFile 이 비어있지 않으면 = 파일이 있으면
+			
+			ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+													.orElseThrow(EntityNotFoundException::new);
+			// 기존 이미지 파일 삭제
+			if (!StringUtils.isEmpty(savedItemImg.getImgName())) {	// 이미지 이름이 비어있지 않으면
+				
+				fileService.deleteFile(itemImgLocation + "/" + savedItemImg.getImgName());	// C:/shop/item/{imgName}
+			}
+			
+			// 새로운 수정된 이미지 파일 업로드
+			String oriImgName = itemImgFile.getOriginalFilename();
+			
+			// 파일 업로드
+			String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+			String imgUrl = "/images/item/" + imgName;
+			
+			// ★savedItemImg는 현재 영속상태이므로 데이터를 변경하는 것만으로 변경감지 기능이 동작하여 트랜잭션이 끝날때 update쿼리가 실행된다.
+			//	>> 엔티티가 반드시 영속상태이여야 한다.
+			savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+		}
 	}
 }

@@ -65,7 +65,7 @@
 			</div>
 			<div class="input-group mb-3">
 				<span class="input-group-text">상품명</span>
-				<input type="text" class="form-control" th:field="*{itemNm}" placeholder="상품명을 입력">
+				<input type="text" class="form-control" th:field="*{itemNm}" placeholder="상품명 입력">
 			</div>
 			<p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect Data</p>
 			
@@ -101,24 +101,42 @@
 			</div>
 			
 			<!-- 수정할 때 -->
-			<div th:if="${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
+			<!-- <div th:if="${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
 				<div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
 					<div class="mb-3">
 						<label for="formFile" class="form-label custom-file-label"
-						th:text="${not #Strings.isEmpty(itemImgDto.oriImgName) ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}}"></label>
+						th:text="${not #Strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}}"></label>
 						<input class="form-control custom-file-input" type="file" id="itemImgFile" name="itemImgFile">
 					</div>
 				</div>
-			</div>
+			</div> -->
+			
+			<div th:if="${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
+            <div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
+               <div class="mb-3">
+                    <label for="formFile" class="form-label custom-file-label" 
+                    th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} 
+                    ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
+                    <input type="hidden" name="itemImgIds" th:value=${itemImgDto.id}>
+                    <input class="form-control custom-file-input" type="file" id="itemImgFile" name="itemImgFile">
+               </div>
+            </div>
+         </div>
+			
 			
 			
 			<div th:if="${#strings.isEmpty(itemFormDto.id)}">
 				<button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary mb-3">저장</button>
 			</div>
          
-			<div th:unless="${#strings.isEmpty(itemFormDto.id)}">
+			<!-- <div th:unless="${#strings.isEmpty(itemFormDto.id)}">
 				<button th:formaction="@{'/admin/item/' + ${itemFormDto.id}}" type="submit" class="btn btn-primary mb-3">수정</button>
-			</div>
+			</div> -->
+			
+			<div th:unless="${#strings.isEmpty(itemFormDto.id)}">
+            <button th:formaction="@{'/admin/item/' + ${itemFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
+         </div>
+			
 
 			
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
