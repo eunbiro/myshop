@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.myshop.dto.ItemFormDto;
 import com.myshop.dto.ItemImgDto;
 import com.myshop.dto.ItemSearchDto;
+import com.myshop.dto.MainItemDto;
 import com.myshop.entity.Item;
 import com.myshop.entity.ItemImg;
 import com.myshop.repository.ItemRepository;
@@ -106,4 +107,12 @@ public class ItemService {
 		
 		return itemRepository.getAdminItemPage(itemSearchDto, pageable);
 	}
+	
+	// 메인에 상품 리스트 가져오기
+	@Transactional(readOnly = true)	// 트랜잭션 읽기 전용(변경감지 수행하지 않음) > 성능향상
+	public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+		
+		return itemRepository.getMainItemPage(itemSearchDto, pageable);
+	}
+	
 }
