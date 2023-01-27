@@ -36,7 +36,7 @@ public class ItemImg extends BaseEntity {
 	
 	private String imgUrl;		// 이미지 조회 경로
 	
-	private String repImgYn;	// 대표 이미지 여부
+	private String repimgYn;	// 대표 이미지 여부
 	
 	// 원본이미지 파일명, 업데이트 할 이미지 파일명, 이미지 경로를 파라메터로 받아서 정보를 업데이트 하는 메소드
 	public void updateItemImg(String oriImgName, String imgName, String imgUrl) {

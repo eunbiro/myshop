@@ -83,4 +83,14 @@ public class Order {
 		
 		return totalPrice;
 	}
+	
+	// 주문 취소
+	public void cancelOrder() {
+		
+		this.orderStatus = OrderStatus.CANCEL;
+		for (OrderItem orderItem : orderItems) {
+			
+			orderItem.cancel();		// 재고 증가	
+		}
+	}
 }

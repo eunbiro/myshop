@@ -45,10 +45,10 @@ public class ItemService {
 			
 			if (i == 0) {
 
-				itemImg.setRepImgYn("Y");
+				itemImg.setRepimgYn("Y");
 			} else {
 				
-				itemImg.setRepImgYn("N");
+				itemImg.setRepimgYn("N");
 			}
 			
 			itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));

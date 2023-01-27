@@ -20,7 +20,7 @@ public class ItemImgDto {
 	
 	private String imgUrl;		// 이미지 조회 경로
 	
-	private String repImgYn;	// 대표 이미지 여부
+	private String repimgYn;	// 대표 이미지 여부
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
